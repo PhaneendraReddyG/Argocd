@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default 
   source:
-    repoURL: git@github.com:PhaneendraReddyG/Argocd.git
+    repoURL: https://github.com/PhaneendraReddyG/Argocd.git
     path: applications/first-app/manifests
     targetRevision: HEAD
   destination:
@@ -31,7 +31,7 @@ metadata:
 spec:
   project: default 
   source:
-    repoURL: git@github.com:PhaneendraReddyG/Argocd.git
+    repoURL: https://github.com/PhaneendraReddyG/Argocd.git
     path: applications/first-app
     targetRevision: HEAD
     helm:
