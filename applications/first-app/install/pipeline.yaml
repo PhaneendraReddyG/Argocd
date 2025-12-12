@@ -14,7 +14,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: first-app
-  syncpolicy:
+  syncPolicy:
     automated:
       prune: true
       selfHeal: true
@@ -32,7 +32,7 @@ spec:
   project: default 
   source:
     repoURL: git@github.com:PhaneendraReddyG/Argocd.git
-    path: applications/first-app/manifests
+    path: applications/first-app
     targetRevision: HEAD
     helm:
       valueFiles:
@@ -40,7 +40,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: first-app
-  syncpolicy:
+  syncPolicy:
     automated:
       prune: true
       selfHeal: true
