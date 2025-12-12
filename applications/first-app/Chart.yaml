@@ -1,0 +1,7 @@
+name: first-app
+version: 0.1.0
+apiVersion: v2
+dependencies:
+  - name: nginx-app
+    version: 0.3.0
+    repository: "https://github.com/PhaneendraReddyG/helm.git"

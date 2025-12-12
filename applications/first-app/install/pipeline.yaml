@@ -1,0 +1,46 @@
+apiVersion: argocd.argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: first-app-manifests
+  annotations:
+    argocd.argoproj.io/manifest-genrator-paths: ".."
+ 
+spec:
+  project: default 
+  source:
+    repoURL: git@github.com:PhaneendraReddyG/Argocd.git
+    path: applications/first-app/manifests
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: first-app
+  syncpolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+apiVersion: argocd.argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: first-app
+  labels:
+    deployMethod: helm-with-pipeline
+  annotations:
+    argocd.argoproj.io/manifest-genrator-paths: ".."
+spec:
+  project: default 
+  source:
+    repoURL: git@github.com:PhaneendraReddyG/Argocd.git
+    path: applications/first-app/manifests
+    targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: first-app
+  syncpolicy:
+    automated:
+      prune: true
+      selfHeal: true
