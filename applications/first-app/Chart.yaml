@@ -3,5 +3,5 @@ version: 0.1.0
 apiVersion: v2
 dependencies:
   - name: nginx-app
-    version: 0.3.0
+    version: 2.4.66
     repository: "https://raw.githubusercontent.com/PhaneendraReddyG/helm/main/docs/"
