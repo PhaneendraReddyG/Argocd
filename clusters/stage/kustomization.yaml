@@ -1,0 +1,9 @@
+ 
+# These clusters are managed from the tools cluster, so we import their applications here
+# we do this to keep the patches in installed_applications from changing their application definitions
+# this also allows the tools cluster pipelines to have their name set with nameprefixes without tools overwriting the other
+# clusters
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ./installed_applications

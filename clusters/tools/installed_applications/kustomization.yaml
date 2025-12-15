@@ -1,0 +1,135 @@
+resources:
+- applications.yaml
+- priority_classes.yaml
+- ../../../applications/first-app/install
+ 
+ 
+namePrefix: tools-
+ 
+# What branch should this cluster use for ALL applications AND the root pipeline
+# the install/branch.yaml is shared between the root pipeline and the application pipelines
+ 
+# What values.yaml should this cluster use for helm applications without GoCD pipelines
+ 
+# Configuration this cluster should use for kustomized-helm applications without GoCD pipelines
+ 
+# Configuration this cluster should use for kustomized-helm applications with GoCD pipelines
+ 
+# What values.yaml should this cluster use for helm applications with GoCD pipelines
+ 
+# Configuration this cluster should use for helm-argocd-vault-plugin-aws-sm-without-pipeline applications with AWS Secret Manager
+ 
+# Set the finalizer so that cascade deletes are default since we do not store data in the cluster
+patches:
+- path: branch.yaml
+  target:
+    group: argoproj.io
+    kind: Application
+    version: v1alpha1
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: not-relevant-to-patch
+    spec:
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - tools.yaml
+  target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: deployMethod=helm-without-pipeline
+    version: v1alpha1
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: not-relevant-to-patch
+    spec:
+      source:
+        plugin:
+          name: kustomized-helm
+          env:
+            - name: HELM_VALUES
+              value: |
+                -f values.yaml -f tools.yaml
+  target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: deployMethod=kustomized-helm-without-pipeline
+    version: v1alpha1
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: not-relevant-to-patch
+    spec:
+      source:
+        plugin:
+          name: kustomized-helm
+          env:
+            - name: HELM_VALUES
+              value: |
+                -f values.yaml -f tools-config.yaml -f tools-currently-deployed-image.yaml
+  target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: deployMethod=kustomized-helm-with-pipeline
+    version: v1alpha1
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: not-relevant-to-patch
+    spec:
+      source:
+        helm:
+          valueFiles:
+          - values.yaml
+          - tools-config.yaml
+          - tools-currently-deployed-image.yaml
+  target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: deployMethod=helm-with-pipeline
+    version: v1alpha1
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: not-relevant-to-patch
+    spec:
+      source:
+        plugin:
+          name: helm-argocd-vault-plugin
+          env:
+            - name: AVP_TYPE
+              value: awssecretsmanager
+            - name: AWS_REGION
+              value: us-east-1
+            - name: HELM_VALUES
+              value: |
+                -f values.yaml -f tools.yaml
+  target:
+    group: argoproj.io
+    kind: Application
+    labelSelector: deployMethod=helm-argocd-vault-plugin-aws-sm-without-pipeline
+    version: v1alpha1
+- patch: |-
+    apiVersion: argoproj.io/v1alpha1
+    kind: Application
+    metadata:
+      name: not-relevant-to-patch
+      finalizers:
+        - resources-finalizer.argocd.argoproj.io
+  target:
+    group: argoproj.io
+    kind: Application
+    version: v1alpha1
+- path: argocd.yaml
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+ 
+ 
