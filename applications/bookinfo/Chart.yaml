@@ -3,5 +3,5 @@ version: 0.0.1
 apiVersion: v2
 dependencies:
   - name: bookinfo
-    version: 1.29.4
+    version: 1.16.4
     repository: "https://raw.githubusercontent.com/PhaneendraReddyG/bookinfo/main/docs/"
