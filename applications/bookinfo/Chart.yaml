@@ -1,0 +1,7 @@
+name: first-app
+version: 0.1.0
+apiVersion: v2
+dependencies:
+  - name: first-app
+    version: 1.29.4
+    repository: "https://raw.githubusercontent.com/PhaneendraReddyG/helm/main/docs/"
