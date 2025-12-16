@@ -31,11 +31,8 @@ spec:
   project: default 
   source:
     repoURL: https://github.com/PhaneendraReddyG/Argocd.git
-    path: applications/bookinfo/tools
+    path: applications/bookinfo
     targetRevision: HEAD
-    helm:
-      valueFiles:
-        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: bookinfo
