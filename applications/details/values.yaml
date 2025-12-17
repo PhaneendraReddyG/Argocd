@@ -1,5 +1,5 @@
 image:
-  repository: docker.io/istio/examples-bookinfo-ratings-v1
+  repository: docker.io/istio/examples-bookinfo-details-v1
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
