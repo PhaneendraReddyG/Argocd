@@ -2,3 +2,18 @@ bookinfo:
   image:
     repository: docker.io/istio/examples-bookinfo-ratings-v1
     tag: 1.16.4
+  service:
+    port: 9080        # Service port
+  containerPort: 9080 
+
+livenessProbe:
+  tcpSocket:
+    port: 9080
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  tcpSocket:
+    port: 9080
+  initialDelaySeconds: 5
+  periodSeconds: 5
