@@ -1,0 +1,69 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ratings-manifests
+  annotations:
+    argocd.argoproj.io/manifest-genrator-paths: ".." 
+spec:
+  project: default 
+  source:
+    repoURL: https://github.com/PhaneendraReddyG/Argocd.git
+    path: applications/ratings/manifests
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ratings
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ratings
+  labels:
+    deployMethod: helm-with-pipeline
+  annotations:
+    argocd.argoproj.io/manifest-genrator-paths: ".."
+spec:
+  project: default 
+  source:
+    repoURL: https://github.com/PhaneendraReddyG/Argocd.git
+    path: applications/ratings
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: ratings
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
+# ---
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: ratings-book
+#   labels:
+#     deployMethod: helm-with-pipeline
+#   annotations:
+#     argocd.argoproj.io/manifest-genrator-paths: ".."
+# spec:
+#   project: default 
+#   source:
+#     repoURL: https://github.com/PhaneendraReddyG/Argocd.git
+#     path: applications/ratings
+#     targetRevision: HEAD
+#     helm:
+#       valueFiles:
+#         - values.yaml
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: ratings
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true

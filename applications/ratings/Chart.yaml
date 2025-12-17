@@ -1,0 +1,7 @@
+name: ratings
+version: 0.0.1
+apiVersion: v2
+dependencies:
+  - name: bookinfo
+    version: 0.0.2
+    repository: "https://raw.githubusercontent.com/PhaneendraReddyG/bookinfo/main/docs/"

@@ -1,0 +1,5 @@
+ratings:
+  app:
+    image:
+      repository: docker.io/istio/examples-bookinfo-ratings-v1
+      tag: 1.16.4
