@@ -1,18 +1,18 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bookinfo-manifests
+  name: details-manifests
   annotations:
     argocd.argoproj.io/manifest-genrator-paths: ".." 
 spec:
   project: default 
   source:
     repoURL: https://github.com/PhaneendraReddyG/Argocd.git
-    path: applications/bookinfo/manifests
+    path: applications/details/manifests
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: bookinfo
+    namespace: details
   syncPolicy:
     automated:
       prune: true
@@ -22,7 +22,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bookinfo
+  name: details
   labels:
     deployMethod: helm-with-pipeline
   annotations:
@@ -31,11 +31,11 @@ spec:
   project: default 
   source:
     repoURL: https://github.com/PhaneendraReddyG/Argocd.git
-    path: applications/bookinfo
+    path: applications/details
     targetRevision: HEAD
   destination:
     server: https://kubernetes.default.svc
-    namespace: bookinfo
+    namespace: details
   syncPolicy:
     automated:
       prune: true
@@ -46,7 +46,7 @@ spec:
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: bookinfo-book
+#   name: details-book
 #   labels:
 #     deployMethod: helm-with-pipeline
 #   annotations:
@@ -55,14 +55,14 @@ spec:
 #   project: default 
 #   source:
 #     repoURL: https://github.com/PhaneendraReddyG/Argocd.git
-#     path: applications/bookinfo
+#     path: applications/details
 #     targetRevision: HEAD
 #     helm:
 #       valueFiles:
 #         - values.yaml
 #   destination:
 #     server: https://kubernetes.default.svc
-#     namespace: bookinfo
+#     namespace: details
 #   syncPolicy:
 #     automated:
 #       prune: true
