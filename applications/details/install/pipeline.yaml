@@ -33,6 +33,9 @@ spec:
     repoURL: https://github.com/PhaneendraReddyG/Argocd.git
     path: applications/details
     targetRevision: HEAD
+    helm:
+      valueFiles:
+        - values.yaml
   destination:
     server: https://kubernetes.default.svc
     namespace: details
