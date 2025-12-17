@@ -34,8 +34,14 @@ spec:
     path: applications/details
     targetRevision: HEAD
     helm:
-      valueFiles:
-        - values.yaml
+      releaseName: ratings
+      values: |
+        replicaCount: 1
+        service:
+          type: ClusterIP
+        image:
+          repository: docker.io/istio/examples-bookinfo-details-v1
+          tag: 1.16.4
   destination:
     server: https://kubernetes.default.svc
     namespace: details
