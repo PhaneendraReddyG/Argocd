@@ -2,3 +2,6 @@ bookinfo:
   image:
     repository: docker.io/istio/examples-bookinfo-details-v1
     tag: 1.16.4
+  service:
+    port: 9080        # Service port
+  containerPort: 9080 
